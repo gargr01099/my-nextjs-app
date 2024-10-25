@@ -1,16 +1,19 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { getItems, deleteItem } from "../../utils/api";
-
-export default function ItemList() {
-  const [items, setItems] = useState([]);
+interface Item {
+    id:number;
+    name:string;
+}
+export default function ItemList():JSX.Element {
+  const [items, setItems] = useState<Item[]>([]);
   useEffect(() => {
     getItems().then((response) => setItems(response.data));
   }, []);
 
   const handleDelete =async(id:number)=>{
     await deleteItem(id);
-    setItems(items.filter((item)=>item.id!==id);
+    setItems(items.filter((item)=>item.id!==id));
   };
   return (
     <div>
